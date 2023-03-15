@@ -15,10 +15,8 @@ public class Controller {
 
     @GetMapping("/hello")
     public String hello(){
-        for (int i = 10000; i < 10010; i++) {
-            producer.sendMsg(i);
-        }
-        return "Hello!";
+
+        return "Hello";
     }
 
     @GetMapping("/docker")

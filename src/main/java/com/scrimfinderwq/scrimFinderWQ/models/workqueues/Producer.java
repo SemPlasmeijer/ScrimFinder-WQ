@@ -1,5 +1,7 @@
 package com.scrimfinderwq.scrimFinderWQ.models.workqueues;
 
+import com.scrimfinderwq.scrimFinderWQ.models.match.Match;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +11,11 @@ public class Producer {
     private Queue queue;
 
     @Autowired
-    private RabbitTemplate rabbitTemplate;
+    private AmqpTemplate rabbitTemplate;
 
-    public void sendMsg(final Integer number) {
-        rabbitTemplate.convertAndSend(queue.getName(), number);
-        System.out.println("Sent: " + number);
+    public void sendMsg(final Match match) {
+        rabbitTemplate.convertAndSend(queue.getName(), match);
+        System.out.println("Sent: " + match.toString());
     }
 
 }
