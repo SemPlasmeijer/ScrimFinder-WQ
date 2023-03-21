@@ -2,12 +2,21 @@ package com.scrimfinderwq.scrimFinderWQ.models.match;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.scrimfinderwq.scrimFinderWQ.models.team.Team;
+import com.scrimfinderwq.scrimFinderWQ.models.tournament.Tournament;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.Serial;
 import java.io.Serializable;
 @Component
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Match implements Serializable {
     @Serial
     private static final long serialVersionUID = -1138446817700416884L;
@@ -20,45 +29,14 @@ public class Match implements Serializable {
     @JsonProperty
     public int round;
 
-    @Autowired
-    public Match() {
+    @JsonProperty
+    public Tournament tournament;
 
-    }
-
-    public Match(Team home_team, Team away_team) {
+    public Match(Team home_team, Team away_team, int round, Tournament tournament) {
         this.away_team = away_team;
         this.home_team = home_team;
-    }
-
-    public Match(int match_id, Team home_team, Team away_team, int round) {
-        this.match_id = match_id;
-        this.home_team = home_team;
-        this.away_team = away_team;
         this.round = round;
-    }
-
-    public int getMatch_id() {
-        return match_id;
-    }
-
-    public void setMatch_id(int match_id) {
-        this.match_id = match_id;
-    }
-
-    public Team getHome_team() {
-        return home_team;
-    }
-
-    public void setHome_team(Team home_team) {
-        this.home_team = home_team;
-    }
-
-    public Team getAway_team() {
-        return away_team;
-    }
-
-    public void setAway_team(Team away_team) {
-        this.away_team = away_team;
+        this.tournament = tournament;
     }
 
     @Override

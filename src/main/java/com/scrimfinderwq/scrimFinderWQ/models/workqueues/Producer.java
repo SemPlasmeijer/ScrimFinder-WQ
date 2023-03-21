@@ -1,6 +1,7 @@
 package com.scrimfinderwq.scrimFinderWQ.models.workqueues;
 
 import com.scrimfinderwq.scrimFinderWQ.models.match.Match;
+import com.scrimfinderwq.scrimFinderWQ.models.match.MatchContainer;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
