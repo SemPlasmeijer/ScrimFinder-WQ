@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class TeamEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long team_id;
     @Column(unique = true)
     public String name;
 

@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class Tournament {
-    public int tournament_id;
+    public Long tournament_id;
     public List<Match> matches;
     public List<Team> teams;
     public TournamentTypes type;
@@ -23,5 +23,9 @@ public class Tournament {
     public Tournament(List<Team> teams, TournamentTypes type) {
         this.teams = teams;
         this.type = type;
+    }
+
+    public Tournament(Long id){
+        tournament_id = id;
     }
 }

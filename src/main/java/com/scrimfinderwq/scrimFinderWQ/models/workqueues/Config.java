@@ -1,5 +1,6 @@
 package com.scrimfinderwq.scrimFinderWQ.models.workqueues;
 
+import com.scrimfinderwq.scrimFinderWQ.entities.mappers.interfaces.MatchMapper;
 import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
@@ -19,12 +20,12 @@ import org.springframework.amqp.rabbit.listener.ConditionalRejectingErrorHandler
 import org.springframework.amqp.rabbit.support.ListenerExecutionFailedException;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
+import org.springframework.context.annotation.Profile;
 import org.springframework.util.ErrorHandler;
 
 @EnableRabbit
 @Configuration
 public class Config {
-
     @Value("${queue.name}")
     private String queueName;
     @Value("${spring.rabbitmq.template.exchange}")
@@ -128,6 +129,19 @@ public class Config {
             }
             return super.isFatal(t);
         }
+    }
+
+
+    @Profile("receiver")
+    @Bean
+    public Consumer receiver() {
+        return new Consumer();
+    }
+
+    @Profile("sender")
+    @Bean
+    public Producer sender() {
+        return new Producer();
     }
 
 }

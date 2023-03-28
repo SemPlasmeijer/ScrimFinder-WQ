@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.Serial;
 import java.io.Serializable;
+
 @Component
 @Data
 @NoArgsConstructor
@@ -21,7 +22,7 @@ public class Match implements Serializable {
     @Serial
     private static final long serialVersionUID = -1138446817700416884L;
     @JsonProperty
-    private int match_id;
+    private Long match_id;
     @JsonProperty
     public Team home_team;
     @JsonProperty
@@ -29,10 +30,9 @@ public class Match implements Serializable {
     @JsonProperty
     public int round;
 
-    @JsonProperty
     public Tournament tournament;
 
-    public Match(Team home_team, Team away_team, int round, Tournament tournament) {
+    public Match(Team home_team, Team away_team, int round,Tournament tournament) {
         this.away_team = away_team;
         this.home_team = home_team;
         this.round = round;
@@ -46,6 +46,7 @@ public class Match implements Serializable {
                 ", home_team=" + home_team.getTeam_id() +
                 ", away_team=" + away_team.getTeam_id() +
                 ", round=" + round +
+                ", tournament=" + tournament.getTournament_id() +
                 '}';
     }
 }

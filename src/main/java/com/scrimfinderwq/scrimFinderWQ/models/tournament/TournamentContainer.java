@@ -1,12 +1,13 @@
 package com.scrimfinderwq.scrimFinderWQ.models.tournament;
 
 import com.scrimfinderwq.scrimFinderWQ.entities.TournamentEntity;
-import com.scrimfinderwq.scrimFinderWQ.entities.mappers.TournamentMapper;
+import com.scrimfinderwq.scrimFinderWQ.entities.mappers.interfaces.TournamentMapper;
 import com.scrimfinderwq.scrimFinderWQ.entities.repositories.TournamentRepo;
 import com.scrimfinderwq.scrimFinderWQ.interfaces.TournamentInterface;
 import com.scrimfinderwq.scrimFinderWQ.models.match.Match;
 import com.scrimfinderwq.scrimFinderWQ.models.team.Team;
 import com.scrimfinderwq.scrimFinderWQ.models.workqueues.Producer;
+import lombok.AllArgsConstructor;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,8 +17,9 @@ import java.util.List;
 import java.util.Random;
 
 @Service
+@AllArgsConstructor
 public class TournamentContainer implements TournamentInterface {
-    public TournamentMapper tournamentMapper = Mappers.getMapper(TournamentMapper.class);
+    private final TournamentMapper tournamentMapper;
     @Autowired
     private TournamentRepo tournamentRepo;
     @Autowired
@@ -58,13 +60,13 @@ public class TournamentContainer implements TournamentInterface {
                 int amount_of_matches_per_round = team_ids.size() / 2;   //THe amount matches in each round is half the amount of teams
 
                 for (int round = 0; round < number_of_rounds; round++) {
-                    Match firstMatch = calcFirstMatchOfRoundRobin(team_ids, copied_teams, round, tournament);
+                    Match firstMatch = calcFirstMatchOfRoundRobin(team_ids, copied_teams, round, new Tournament(tournament.getTournament_id()));
                     if (!skipMatch(firstMatch)) {
                         matches.add(firstMatch);
                     }
                     // the rest of the matches in a round
                     for (int round_match = 1; round_match < amount_of_matches_per_round; round_match++) {
-                        Match nextMatch = calcNextMatchOfRoundRobin(copied_teams, round, round_match, tournament);
+                        Match nextMatch = calcNextMatchOfRoundRobin(copied_teams, round, round_match, new Tournament(tournament.getTournament_id()));
                         if (!skipMatch(nextMatch)) {
                             matches.add(nextMatch);
                         }

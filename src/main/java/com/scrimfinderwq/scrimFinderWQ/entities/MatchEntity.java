@@ -1,5 +1,6 @@
 package com.scrimfinderwq.scrimFinderWQ.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.scrimfinderwq.scrimFinderWQ.models.team.Team;
 import com.scrimfinderwq.scrimFinderWQ.models.tournament.Tournament;
@@ -21,15 +22,15 @@ import java.util.List;
 public class MatchEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    private Long match_id;
     @ManyToOne
     public TeamEntity home_team;
     @ManyToOne
     public TeamEntity away_team;
-
-    @ManyToOne
-    public TournamentEntity tournament;
     public int round;
+    @ManyToOne
+    @JoinColumn(name = "tournament_id")
+    @JsonIgnore
+    public TournamentEntity tournament;
 
 }

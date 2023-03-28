@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
 import java.util.List;
 
@@ -18,9 +19,9 @@ import java.util.List;
 public class TournamentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    private Long tournament_id;
     @OneToMany
+    @JoinColumn(name = "tournament_id")
     public List<MatchEntity> matches;
     @ManyToMany
     public List<TeamEntity> teams;
