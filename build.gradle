@@ -3,6 +3,15 @@ plugins {
 	id 'org.springframework.boot' version '3.0.3'
 	id 'io.spring.dependency-management' version '1.1.0'
 	id "com.diffplug.eclipse.apt" version "3.26.0"
+	id "org.sonarqube" version "3.5.0.2730"
+}
+
+sonarqube {
+	properties {
+		property "sonar.projectKey", "SemPlasmeijer_scrimFinder-WQ"
+		property "sonar.organization", "semplasmeijer"
+		property "sonar.host.url", "https://sonarcloud.io"
+	}
 }
 
 group = 'com.scrimfinderwq'
