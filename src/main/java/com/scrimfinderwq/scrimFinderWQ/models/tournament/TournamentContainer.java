@@ -8,13 +8,11 @@ import com.scrimfinderwq.scrimFinderWQ.models.match.Match;
 import com.scrimfinderwq.scrimFinderWQ.models.team.Team;
 import com.scrimfinderwq.scrimFinderWQ.models.workqueues.Producer;
 import lombok.AllArgsConstructor;
-import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 @Service
 @AllArgsConstructor
@@ -122,7 +120,6 @@ public class TournamentContainer implements TournamentInterface {
 
         int away_team_index = round % copied_teams.size();
         Team away_team = new Team(original_teams.get(away_team_index));
-        Random rand = new Random();
 
         return new Match(home_team, away_team, round, tournament);
     }
@@ -133,8 +130,6 @@ public class TournamentContainer implements TournamentInterface {
 
         Team home_team = new Team(copied_teams.get(home_team_index));
         Team away_team = new Team(copied_teams.get(away_team_index));
-
-        Random rand = new Random();
 
         return new Match(home_team, away_team, round, tournament);
     }

@@ -1,7 +1,5 @@
 package com.scrimfinderwq.scrimFinderWQ.models.workqueues;
 
-import java.math.BigInteger;
-
 import com.scrimfinderwq.scrimFinderWQ.entities.MatchEntity;
 import com.scrimfinderwq.scrimFinderWQ.entities.TournamentEntity;
 import com.scrimfinderwq.scrimFinderWQ.entities.mappers.interfaces.MatchMapper;
@@ -45,12 +43,6 @@ public class Consumer {
         stopWatch.stop();
 
         System.out.println("Consumer(" + srNo + ") Done in " + stopWatch.getTotalTimeSeconds() + "s");
-    }
-
-    private Match fakeMatchInsert(Match match) {
-        BigInteger veryBig = new BigInteger(String.valueOf(match.getMatch_id()));
-        veryBig.nextProbablePrime();
-        return match;
     }
 
     private Match createMatch(Match match) {
