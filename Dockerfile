@@ -1,16 +1,14 @@
-FROM gradle:8.0-jdk17 AS build
-WORKDIR /workspace/app
+FROM gradle:8 AS build
+COPY --chown=gradle:gradle . /home/gradle/src
+WORKDIR /home/gradle/src
+RUN gradle build --no-daemon -x test
 
-COPY gradle gradle
-COPY build.gradle settings.gradle gradlew ./
-COPY src src
+FROM openjdk:17
 
-RUN ./gradlew build -x test
-RUN mkdir -p build/libs/dependency && (cd build/libs/dependency; jar -xf ../scrimFinder-WQ-0.0.1-SNAPSHOT.jar)
-FROM eclipse-temurin:17-jdk-alpine
-VOLUME /tmp
-ARG DEPENDENCY=/workspace/app/build/libs/dependency
-COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
-COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
-COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
-ENTRYPOINT ["java","-cp","app:app/lib/*","com.scrimfinderwq.scrimFinderWQ.ScrimFinderWqApplication"]
+EXPOSE 8080
+
+RUN mkdir /app
+
+COPY --from=build /home/gradle/src/build/libs/*.jar /app/spring-boot-application.jar
+
+ENTRYPOINT ["java", "-XX:+UnlockExperimentalVMOptions", "-Djava.security.egd=file:/dev/./urandom","-jar","/app/spring-boot-application.jar"]
